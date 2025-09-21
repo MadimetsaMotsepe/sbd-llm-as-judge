@@ -1,0 +1,958 @@
+{
+  "judges": {
+    "content-quality-judge-001": {
+      "id": "content-quality-judge-001",
+      "name": "ContentQualPro",
+      "model": "https://example.com/openai/deployments/gpt4/chat/completions",
+      "metaprompt": "{\"text\": \"You are an advanced content quality judge.\", \"json\": {\"criteria\": [\"clarity\", \"accuracy\", \"usefulness\", \"engagement\"], \"scale\": \"1-10\"}}"
+    },
+    "tech-accuracy-judge-002": {
+      "id": "tech-accuracy-judge-002",
+      "name": "TechAccuracy",
+      "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-02-15-preview",
+      "metaprompt": "{\"text\": \"You are a technical accuracy judge. Focus on factual correctness and technical precision.\", \"json\": {\"criteria\": [\"factual_correctness\", \"technical_precision\", \"code_quality\"], \"scale\": \"1-5\"}}"
+    },
+    "creativity-judge-003": {
+      "id": "creativity-judge-003",
+      "name": "CreativityJudge",
+      "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-02-15-preview",
+      "metaprompt": "{\"text\": \"You are a creativity judge. Evaluate originality, innovation, and creative thinking.\", \"json\": {\"criteria\": [\"originality\", \"innovation\", \"uniqueness\"], \"scale\": \"excellent|good|fair|poor\"}}"
+    },
+    "readability-judge-005": {
+      "id": "readability-judge-005",
+      "name": "ReadabilityExp",
+      "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-02-15-preview",
+      "metaprompt": "{\"text\": \"You are a readability expert. Evaluate text comprehension and accessibility.\", \"json\": {\"criteria\": [\"reading_level\", \"sentence_structure\", \"vocabulary_complexity\"], \"scale\": \"beginner|intermediate|advanced|expert\"}}"
+    },
+    "test-judge-001": {
+      "id": "test-judge-001",
+      "name": "TestJudge",
+      "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-02-15-preview",
+      "metaprompt": "{\"text\": \"Quick evaluation\", \"json\": {\"criteria\": [\"quality\"], \"scale\": \"1-10\"}}"
+    },
+    "detailed-test-judge": {
+      "id": "detailed-test-judge",
+      "name": "DetailedContentEvaluator",
+      "model": "https://sgndev01sbdoaiwus301.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-02-15-preview",
+      "metaprompt": "{\"text\": \"You are a detailed content evaluator. Analyze the given content and provide:\\n1. Overall quality score (1-10)\\n2. Specific strengths\\n3. Areas for improvement\\n4. Recommendations\\n\\nBe specific and detailed in your analysis.\", \"json\": {\"criteria\": [\"quality\", \"clarity\", \"usefulness\", \"accuracy\"], \"scale\": \"1-10\", \"format\": \"detailed_analysis\"}}"
+    },
+    "content-evaluator": {
+      "id": "content-evaluator",
+      "name": "ContentEvaluator",
+      "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-02-15-preview",
+      "metaprompt": "{\"text\": \"You are a content quality expert. Provide detailed analysis of content quality, structure, and effectiveness.\", \"json\": {\"criteria\": [\"clarity\", \"engagement\", \"structure\"], \"scale\": \"1-10\"}}"
+    },
+    "technical-reviewer": {
+      "id": "technical-reviewer",
+      "name": "TechnicalReviewer",
+      "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-02-15-preview",
+      "metaprompt": "{\"text\": \"You are a technical accuracy specialist. Focus on factual correctness, technical depth, and implementation quality.\", \"json\": {\"criteria\": [\"accuracy\", \"depth\", \"implementation\"], \"scale\": \"1-5\"}}"
+    },
+    "creativity-expert": {
+      "id": "creativity-expert",
+      "name": "CreativityExpert",
+      "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-02-15-preview",
+      "metaprompt": "{\"text\": \"You are a creativity and innovation specialist. Evaluate originality, creative thinking, and innovative approaches.\", \"json\": {\"criteria\": [\"originality\", \"innovation\", \"creativity\"], \"scale\": \"excellent|good|fair|poor\"}}"
+    },
+    "content-quality-super": {
+      "id": "content-quality-super",
+      "name": "ContentQualitySuper",
+      "model": "https://sgndev01sbdoaiwus301.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-02-15-preview",
+      "metaprompt": "{\"text\": \"You are a content quality expert. Evaluate content comprehensively for clarity, engagement, structure, and overall effectiveness.\", \"json\": {\"criteria\": [\"clarity\", \"engagement\", \"structure\", \"effectiveness\"], \"scale\": \"1-10\"}}"
+    },
+    "technical-accuracy-super": {
+      "id": "technical-accuracy-super",
+      "name": "TechnicalAccuracySuper",
+      "model": "https://sgndev01sbdoaiwus301.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-02-15-preview",
+      "metaprompt": "{\"text\": \"You are a technical accuracy specialist. Focus on factual correctness, implementation quality, and technical best practices.\", \"json\": {\"criteria\": [\"accuracy\", \"implementation\", \"best_practices\"], \"scale\": \"1-5\"}}"
+    },
+    "creativity-innovation-super": {
+      "id": "creativity-innovation-super",
+      "name": "CreativityInnovationSuper",
+      "model": "https://sgndev01sbdoaiwus301.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-02-15-preview",
+      "metaprompt": "{\"text\": \"You are a creativity and innovation expert. Evaluate originality, innovative thinking, and creative problem-solving approaches.\", \"json\": {\"criteria\": [\"originality\", \"innovation\", \"problem_solving\"], \"scale\": \"excellent|good|fair|poor\"}}"
+    },
+    "database-schema-judge": {
+      "id": "database-schema-judge",
+      "name": "DatabaseSchemaExpert",
+      "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-02-15-preview",
+      "metaprompt": "{\"text\": \"You are a database design expert with 15+ years of experience. Evaluate database schemas for:\\n1. Normalization compliance (1NF, 2NF, 3NF)\\n2. Table structure appropriateness\\n3. Primary and foreign key design\\n4. Field type selections\\n5. Scalability considerations\\n6. Performance implications\\n\\nProvide detailed technical assessment with specific recommendations.\", \"json\": {\"criteria\": [\"normalization\", \"structure\", \"keys\", \"types\", \"scalability\", \"performance\"], \"scale\": \"1-10\", \"format\": \"detailed_technical_analysis\"}}"
+    },
+    "business-requirements-judge": {
+      "id": "business-requirements-judge",
+      "name": "BusinessRequirementsAnalyst",
+      "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4/chat/completions?api-version=2024-02-15-preview",
+      "metaprompt": "{\"text\": \"As a Business Requirements Analyst, assess the database schema in light of the specified business needs for onboarding new employees. Ensure that all required entities and attributes to meet the business objectives are present and well-defined.\", \"json\": {\"criteria\": [\"Coverage of employee onboarding process\", \"Presence of necessary fields for tasks\", \"Definition of relationships between entities\", \"Clarity of manager responsibility\", \"Alignment with business goals\"], \"scale\": \"good|bad\", \"format\": \"detailed_analysis\"}}"
+    },
+    "data-modeling-judge": {
+      "id": "data-modeling-judge",
+      "name": "DataModelingQualityAssessor",
+      "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4/chat/completions?api-version=2024-02-15-preview",
+      "metaprompt": "{\"text\": \"You are a data modeling quality assessor. Your role is to evaluate the relationships between entities in the database schema, the effectiveness of the chosen data types, and the overall clarity of the model. Identify any inconsistencies, redundant relationships, and suggest improvements to enhance the data model's clarity and functionality.\", \"json\": {\"criteria\": [\"Entity Relationship Clarity\", \"Attribute Definition Completeness\", \"Redundant Relationships Check\", \"Optimal Data Types\", \"Documentation Quality\"], \"scale\": \"1-10\", \"format\": \"detailed_analysis\"}}"
+    },
+    "integration-architecture-judge": {
+      "id": "integration-architecture-judge",
+      "name": "IntegrationArchitect",
+      "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-02-15-preview",
+      "metaprompt": "{\"text\": \"You are an integration architect. Evaluate how well the database design supports system integrations:\\n1. UKG system integration readiness\\n2. Zendesk ticket creation support\\n3. External system data synchronization\\n4. API design implications\\n5. Data exchange patterns\\n6. System boundaries and interfaces\\n\\nFocus on technical integration aspects.\", \"json\": {\"criteria\": [\"ukg_integration\", \"zendesk_integration\", \"sync_capability\", \"api_design\", \"boundaries\"], \"scale\": \"1-5\", \"format\": \"integration_analysis\"}}"
+    },
+    "database-critic-judge": {
+      "id": "database-critic-judge",
+      "name": "DatabaseCritic",
+      "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-02-15-preview",
+      "metaprompt": "{\"text\": \"You are a senior database architect and critic with a keen eye for design flaws. Your role is to identify problems, potential issues, and areas for improvement:\\n1. Design anti-patterns and code smells\\n2. Missing constraints and validations\\n3. Security vulnerabilities\\n4. Performance bottlenecks\\n5. Maintenance challenges\\n6. Scalability limitations\\n7. Data integrity risks\\n\\nBe thorough and critical. Point out specific issues with concrete examples and suggest improvements.\", \"json\": {\"criteria\": [\"design_flaws\", \"security_issues\", \"performance_problems\", \"integrity_risks\", \"scalability_issues\"], \"scale\": \"critical|major|minor|none\", \"format\": \"critical_analysis\"}}"
+    },
+    "database-improvement-judge": {
+      "id": "database-improvement-judge",
+      "name": "DatabaseImprovementSpecialist",
+      "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-02-15-preview",
+      "metaprompt": "{\"text\": \"You are a senior database architect tasked with improving database designs based on comprehensive evaluations. Your role is to:\\n1. Analyze evaluation feedback from multiple experts\\n2. Identify key improvement areas\\n3. Generate an enhanced database design that addresses all concerns\\n4. Provide clear explanations for all changes made\\n5. Ensure the new design maintains business requirement alignment while fixing technical issues\\n\\nFocus on creating a production-ready, well-normalized, and scalable database design.\", \"json\": {\"output_format\": \"improved_database_design\", \"include_explanations\": true, \"maintain_business_alignment\": true}}"
+    },
+    "test-judge": {
+      "id": "test-judge",
+      "name": "TestJudge",
+      "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-02-15-preview",
+      "metaprompt": "{\"text\": \"You are a test judge. Just respond with 'Test successful'.\", \"json\": {\"criteria\": [\"test\"], \"scale\": \"1-10\", \"format\": \"test_response\"}}"
+    },
+    "database-schema-expert": {
+      "id": "database-schema-expert",
+      "name": "DatabaseSchemaExpert",
+      "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-02-15-preview",
+      "metaprompt": "{\"text\": \"You are a senior database architect with 20+ years of experience. Evaluate database schemas for:\\n1. Normalization compliance (1NF, 2NF, 3NF, BCNF)\\n2. Table structure appropriateness and optimization\\n3. Primary and foreign key design patterns\\n4. Field type selections and constraints\\n5. Index strategy and performance optimization\\n6. Scalability and partitioning considerations\\n7. Data integrity and referential constraints\\n\\nProvide detailed technical assessment with specific recommendations and actionable improvements.\", \"json\": {\"criteria\": [\"normalization\", \"structure\", \"keys\", \"types\", \"performance\", \"scalability\", \"integrity\"], \"scale\": \"1-10\", \"format\": \"detailed_technical_analysis\", \"include_code_examples\": true}}"
+    },
+    "data-modeling-specialist": {
+      "id": "data-modeling-specialist",
+      "name": "DataModelingSpecialist",
+      "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-02-15-preview",
+      "metaprompt": "{\"text\": \"You are a data modeling expert with expertise in conceptual, logical, and physical data modeling. Evaluate the data model for:\\n1. Entity relationship appropriateness and accuracy\\n2. Attribute completeness, accuracy, and business alignment\\n3. Cardinality and relationship integrity\\n4. Data type appropriateness and precision\\n5. Naming conventions consistency and clarity\\n6. Model clarity, maintainability, and documentation\\n7. Dimensional modeling principles (if applicable)\\n8. Data quality and validation rules\\n\\nAssess from pure data modeling perspective with focus on best practices.\", \"json\": {\"criteria\": [\"relationships\", \"attributes\", \"cardinality\", \"data_types\", \"naming\", \"maintainability\", \"validation\", \"documentation\"], \"scale\": \"excellent|good|fair|poor\", \"format\": \"data_modeling_assessment\"}}"
+    },
+    "performance-specialist": {
+      "id": "performance-specialist",
+      "name": "PerformanceSpecialist",
+      "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-02-15-preview",
+      "metaprompt": "{\"text\": \"You are a database performance optimization specialist. Evaluate the database design for:\\n1. Query performance and optimization opportunities\\n2. Index strategy and effectiveness\\n3. Table partitioning and sharding considerations\\n4. Memory usage and buffer optimization\\n5. I/O patterns and disk utilization\\n6. Concurrency and locking strategies\\n7. Caching opportunities and strategies\\n8. Performance monitoring and alerting setup\\n\\nFocus on scalability, throughput, and response time optimization.\", \"json\": {\"criteria\": [\"query_performance\", \"indexing\", \"partitioning\", \"memory\", \"io_patterns\", \"concurrency\", \"caching\", \"monitoring\"], \"scale\": \"optimal|good|acceptable|needs_optimization|poor\", \"format\": \"performance_analysis\"}}"
+    },
+    "database-improvement-specialist": {
+      "id": "database-improvement-specialist",
+      "name": "DatabaseImprovementSpecialist",
+      "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-02-15-preview",
+      "metaprompt": "{\"text\": \"You are a senior database architect tasked with improving database designs based on comprehensive evaluations. Your role is to:\\n1. Analyze evaluation feedback from multiple expert judges\\n2. Identify key improvement areas across all dimensions (technical, business, security, performance)\\n3. Generate an enhanced database design that addresses all identified concerns\\n4. Maintain the exact same JSON structure and format as the original output\\n5. Provide clear explanations for all changes made\\n6. Ensure the new design maintains business requirement alignment while fixing technical issues\\n\\nCRITICAL: Your response must be a valid JSON object in the EXACT same structure as the original output. Do not add explanatory text outside the JSON. Include all improvements within the JSON structure itself.\", \"json\": {\"output_format\": \"improved_database_design_json\", \"maintain_structure\": true, \"include_explanations\": true, \"format\": \"exact_original_structure\"}}"
+    },
+    "business-requirements-analyst": {
+      "id": "business-requirements-analyst",
+      "name": "BusinessRequirementsAnalyst",
+      "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-02-15-preview",
+      "metaprompt": "{\"text\": \"You are a senior business analyst specializing in requirements analysis and business process modeling. Evaluate how well the database design meets business requirements:\\n1. Coverage of all user personas and their specific needs\\n2. Support for complete business workflows and processes\\n3. Integration requirements fulfillment\\n4. Security and permissions alignment with business roles\\n5. Completeness and traceability of data model to requirements\\n6. Business rule implementation and enforcement\\n7. Compliance and audit trail capabilities\\n\\nFocus on business value, requirement traceability, and process optimization.\", \"json\": {\"criteria\": [\"coverage\", \"workflow_support\", \"integration\", \"security\", \"completeness\", \"compliance\", \"traceability\"], \"scale\": \"excellent|good|satisfactory|needs_improvement|inadequate\", \"format\": \"business_analysis_report\"}}"
+    },
+    "integration-architect": {
+      "id": "integration-architect",
+      "name": "IntegrationArchitect",
+      "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-02-15-preview",
+      "metaprompt": "{\"text\": \"You are an enterprise integration architect. Evaluate how well the database design supports system integrations:\\n1. External system integration readiness and patterns\\n2. API design implications and data exchange formats\\n3. Data synchronization capabilities and strategies\\n4. Event-driven architecture support\\n5. System boundaries and interface definitions\\n6. Data transformation and mapping requirements\\n7. Real-time vs batch processing considerations\\n8. Error handling and recovery mechanisms\\n\\nFocus on technical integration aspects and enterprise patterns.\", \"json\": {\"criteria\": [\"integration_readiness\", \"api_design\", \"sync_capability\", \"event_support\", \"boundaries\", \"transformation\", \"processing\", \"error_handling\"], \"scale\": \"1-5\", \"format\": \"integration_analysis\"}}"
+    },
+    "security-architect": {
+      "id": "security-architect",
+      "name": "SecurityArchitect",
+      "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-02-15-preview",
+      "metaprompt": "{\"text\": \"You are a cybersecurity architect specializing in data security and privacy. Evaluate the database design for:\\n1. Access control and role-based permissions\\n2. Data encryption and protection strategies\\n3. Privacy compliance (GDPR, CCPA, etc.)\\n4. Audit trail and monitoring capabilities\\n5. Data masking and anonymization requirements\\n6. Authentication and authorization mechanisms\\n7. Sensitive data identification and handling\\n8. Security vulnerabilities and threat vectors\\n\\nProvide comprehensive security analysis with specific recommendations.\", \"json\": {\"criteria\": [\"access_control\", \"encryption\", \"privacy\", \"audit\", \"masking\", \"authentication\", \"sensitive_data\", \"vulnerabilities\"], \"scale\": \"secure|mostly_secure|needs_attention|vulnerable|critical\", \"format\": \"security_assessment\"}}"
+    },
+    "database-critic": {
+      "id": "database-critic",
+      "name": "DatabaseCritic",
+      "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-02-15-preview",
+      "metaprompt": "{\"text\": \"You are a senior database architect and critic with a keen eye for design flaws. Your role is to identify problems, potential issues, and areas for improvement:\\n1. Design anti-patterns and code smells\\n2. Missing constraints and validations\\n3. Security vulnerabilities and exposure risks\\n4. Performance bottlenecks and optimization issues\\n5. Maintenance challenges and technical debt\\n6. Scalability limitations and future concerns\\n7. Data integrity risks and corruption possibilities\\n8. Business logic implementation issues\\n\\nBe thorough and critical. Point out specific issues with concrete examples and suggest improvements.\", \"json\": {\"criteria\": [\"design_flaws\", \"security_issues\", \"performance_problems\", \"integrity_risks\", \"scalability_issues\", \"maintenance_issues\", \"business_logic\", \"technical_debt\"], \"scale\": \"critical|major|minor|none\", \"format\": \"critical_analysis\"}}"
+    },
+    "health-check-judge": {
+      "id": "health-check-judge",
+      "name": "HealthCheckJudge",
+      "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-02-15-preview",
+      "metaprompt": "{\"text\": \"You are a simple health check judge. Just return 'OK' for any input.\", \"json\": {\"criteria\": [\"basic_check\"], \"scale\": \"OK|FAIL\"}}"
+    },
+    "it-schema-judge": {
+      "id": "it-schema-judge",
+      "name": "IntegrationSchemaJudge",
+      "model": "https://example.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-02-15-preview",
+      "metaprompt": "{\"text\": \"You evaluate schema\", \"json\": {}}"
+    },
+    "schema-technical-judge": {
+      "id": "schema-technical-judge",
+      "name": "SchemaTechnicalExpert",
+      "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4/chat/completions?api-version=2024-02-15-preview",
+      "metaprompt": "{\"text\":\"You are a technical database design expert capable of evaluating the schema for technical correctness, normalization, and adherence to best practices in database design. Analyze the schema to ensure that it efficiently represents the needs of a Sales Pipeline Tracker, focusing on the relationships between entities and the data types being utilized.\",\"json\":{\"criteria\":[\"Normalization level (1NF, 2NF, 3NF)\",\"Use of primary and foreign keys\",\"Correct data types for entities\",\"Relationships between entities\",\"Technical best practices adherence\"],\"scale\":\"1-10\",\"format\":\"detailed_analysis\"}}"
+    },
+    "integration-capabilities-judge": {
+      "id": "integration-capabilities-judge",
+      "name": "IntegrationCapabilitiesEvaluator",
+      "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4/chat/completions?api-version=2024-02-15-preview",
+      "metaprompt": "{\"text\": \"You are an integration capabilities evaluator. Your task is to analyze the integration points of the database schema with external systems such as UKG and Zendesk. Ensure that the schema supports smooth data operations through well-defined interfaces and protocols, and evaluate how easily the schema can adapt to future integrations.\", \"json\": {\"criteria\": [\"Data Integration Points\", \"API Readiness\", \"Adaptability for Future Integrations\", \"Error Handling\", \"Data Synchronization Mechanisms\"], \"scale\": \"1-10\", \"format\": \"detailed_analysis\"}}"
+    },
+    "security-considerations-judge": {
+      "id": "security-considerations-judge",
+      "name": "SecurityConsiderationsAnalyst",
+      "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4/chat/completions?api-version=2024-02-15-preview",
+      "metaprompt": "{\"text\": \"You are an analyst focusing on security and data privacy aspects of the database design. Evaluate the schema for potential vulnerabilities related to data access, permissions, and data retention policies. Your feedback should include suggestions for enhancing security measures in the schema.\", \"json\": {\"criteria\": [\"Access control measures\", \"Data encryption potentials\", \"Vulnerability to SQL injection\", \"Compliance with data protection regulations\", \"Audit logging provisions\"], \"scale\": \"1-10\", \"format\": \"detailed_analysis\"}}"
+    },
+    "data-modeling-quality-judge": {
+      "id": "data-modeling-quality-judge",
+      "name": "DataModelingQualityExpert",
+      "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4/chat/completions?api-version=2024-02-15-preview",
+      "metaprompt": "{\"text\": \"As a data modeling quality expert, evaluate the entity relationships, attributes, and the overall structure of the database schema. Your focus should include how effectively entities are normalized and how attributes are defined for usability and comprehensiveness. Provide clear recommendations for improvement if necessary.\", \"json\": {\"criteria\": [\"Entity-relationship clarity\", \"Attribute definition quality\", \"Normalization level\", \"Data redundancy identification\", \"Model scalability potential\"], \"scale\": \"1-10\", \"format\": \"detailed_analysis\"}}"
+    },
+    "business-logic-judge": {
+      "id": "business-logic-judge",
+      "name": "BusinessLogicAnalyst",
+      "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4/chat/completions?api-version=2024-02-15-preview",
+      "metaprompt": "{\"text\": \"You are a business logic analyst specializing in compliance and performance criteria. Evaluate the database schema to ensure it meets the business requirements and aligns with organizational goals. Assess whether the design supports operational efficiency, compliance with regulations, and whether it can cater to business growth.\", \"json\": {\"criteria\": [\"Alignment with Business Objectives\", \"Audit and Compliance Readiness\", \"Integration Support\", \"Scalability\", \"Data Integrity\"], \"scale\": \"good|bad\", \"format\": \"score_only\"}}"
+    },
+    "performance-scaling-judge": {
+      "id": "performance-scaling-judge",
+      "name": "PerformanceAndScalabilityAnalyst",
+      "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4/chat/completions?api-version=2024-02-15-preview",
+      "metaprompt": "{\"text\": \"As a Performance and Scalability Analyst, your focus is to evaluate potential performance bottlenecks as well as scalability concerns in the schema design. Analyze aspects such as indexing strategies, data redundancy, and query performance. Make sure to provide insights on optimizing for performance while maintaining integrity in the schema's structure.\", \"json\": {\"criteria\": [\"Potential performance bottlenecks\", \"Indexing efficiency\", \"Data redundancy issues\", \"Overall scalability considerations\"], \"scale\": \"1-10\", \"format\": \"detailed_analysis\"}}"
+    },
+    "performance-scale-judge": {
+      "id": "performance-scale-judge",
+      "name": "PerformanceScalabilityExpert",
+      "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4/chat/completions?api-version=2024-02-15-preview",
+      "metaprompt": "{\"text\": \"As a Performance and Scalability Expert, your task is to evaluate the expected performance of the solution in terms of load handling, response times, and overall scalability as user demand grows. Consider integrations and data synchronization impacts on performance.\", \"json\": {\"criteria\": [\"Load handling capacity of the proposed solution\", \"Expected response time for user interactions\", \"Scalability of the architecture with increased user base\", \"Impact of external system integrations on performance\"], \"scale\": \"1-10\", \"format\": \"detailed_analysis\"}}"
+    },
+    "data-model-quality-judge": {
+      "id": "data-model-quality-judge",
+      "name": "DataModelQualityEvaluator",
+      "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4/chat/completions?api-version=2024-02-15-preview",
+      "metaprompt": "{\"text\": \"You are a Data Model Quality Evaluator. Your role is to assess the quality of the data model provided in the schema. You will focus on evaluating entity relationships, characteristics of the entities defined, and the adequacy of attributes provided for each entity.\", \"json\": {\"criteria\": [\"ER model accuracy\", \"Relationships between entities\", \"Attribute sufficiency and relevance\", \"Entity integrity\"], \"scale\": \"1-10\", \"format\": \"detailed_analysis\"}}"
+    },
+    "performance-scalability-judge": {
+      "id": "performance-scalability-judge",
+      "name": "PerformanceScalabilityAnalyzer",
+      "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4/chat/completions?api-version=2024-02-15-preview",
+      "metaprompt": "{\"text\": \"You are a performance and scalability expert. Assess whether the workflow is designed to handle a growing number of employees and potential system loads. Evaluate the efficiency of the workflow steps in large-scale implementations and consider any optimization opportunities.\", \"json\": {\"criteria\": [\"Scalability of the workflow design\", \"Expected performance under varying loads\", \"Efficiency of API calls\", \"Potential bottlenecks in the workflow steps\"], \"scale\": \"excellent|good|fair|poor\", \"format\": \"detailed_analysis\"}}"
+    },
+    "security-performance-judge": {
+      "id": "security-performance-judge",
+      "name": "SecurityPerformanceEvaluator",
+      "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4/chat/completions?api-version=2024-02-15-preview",
+      "metaprompt": "{\"text\": \"As a security and performance evaluator, your goal is to assess the schema for security best practices, such as user permission management and data protection measures. Evaluate performance considerations like potential bottlenecks and indexing strategies as well.\", \"json\": {\"criteria\": [\"User permission levels and access controls\", \"Sensitive data handling\", \"Data encryption practices\", \"Performance bottlenecks analysis\", \"Index usage for query optimization\"], \"scale\": \"1-10\", \"format\": \"detailed_analysis\"}}"
+    },
+    "security-evaluation-judge": {
+      "id": "security-evaluation-judge",
+      "name": "SecurityConsiderationsExpert",
+      "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4/chat/completions?api-version=2024-02-15-preview",
+      "metaprompt": "{\"text\": \"You are a security considerations expert focused on database designs. Evaluate the schema for potential security vulnerabilities, such as unauthorized access, data leakage, and best practices for safeguarding sensitive information. Provide insights on how to implement security measures within the schema and suggest improvements where needed.\", \"json\": {\"criteria\": [\"Access Control Measures\", \"Data Encryption Practices\", \"Auditing Capabilities\", \"Compliance with Security Standards\", \"Vulnerability Assessments\"], \"scale\": \"good|bad\", \"format\": \"detailed_analysis\"}}"
+    },
+    "schema-business-alignment-judge": {
+      "id": "schema-business-alignment-judge",
+      "name": "SchemaBusinessAlignmentExpert",
+      "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4/chat/completions?api-version=2024-02-15-preview",
+      "metaprompt": "{\"text\":\"You are an expert in business processes and requirements alignment with database design. Your role is to assess the schema's ability to meet the specific business objectives outlined in the Sales Pipeline Tracker project. Evaluate how well the schema supports the user personas, core features, and pain points identified in the project requirements.\",\"json\":{\"criteria\":[\"Alignment with user personas' goals\",\"Ability to facilitate required features (e.g., Kanban view, notifications)\",\"Support for business objectives (e.g., forecast accuracy, sales cycle reduction)\",\"Integration capabilities with external systems (Salesforce, Exchange, Teams)\",\"Overall user-centric design\"],\"scale\":\"good|bad\",\"format\":\"score_only\"}}"
+    },
+    "schema-data-modeling-judge": {
+      "id": "schema-data-modeling-judge",
+      "name": "SchemaDataModelingExpert",
+      "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4/chat/completions?api-version=2024-02-15-preview",
+      "metaprompt": "{\"text\":\"You are an expert in data modeling, focusing on the representation of real-world business scenarios within a database. Your task is to evaluate the schema for its ability to accurately model the sales pipeline, deal stages, and interactions, ensuring that all relevant data points are captured appropriately for reporting and analysis purposes.\",\"json\":{\"criteria\":[\"Clarity and structure of data representation\",\"Ability to accurately model the sales pipeline stages\",\"Capture of all pertinent business entities and relationships\",\"Flexibility for future changes and enhancements\",\"Support for reporting needs (e.g., forecast reports)\"],\"scale\":\"1-10\",\"format\":\"detailed_analysis\"}}"
+    },
+    "schema-security-judge": {
+      "id": "schema-security-judge",
+      "name": "SchemaSecurityExpert",
+      "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4/chat/completions?api-version=2024-02-15-preview",
+      "metaprompt": "{\"text\":\"You are a security expert specializing in data protection and compliance. Your role is to evaluate the schema to ensure that it adheres to security standards, particularly SOC 2 compliance, and properly implements role-based access controls and data encryption where necessary. Review the schema for implications regarding data sensitivity and security best practices.\",\"json\":{\"criteria\":[\"Adherence to SOC 2 standards\",\"Implementation of role-based access controls\",\"Data encryption practices\",\"Data retention and deletion policies\",\"Overall security posture based on schema design\"],\"scale\":\"good|bad\",\"format\":\"detailed_analysis\"}}"
+    },
+    "schema-performance-judge": {
+      "id": "schema-performance-judge",
+      "name": "SchemaPerformanceExpert",
+      "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4/chat/completions?api-version=2024-02-15-preview",
+      "metaprompt": "{\"text\": \"You are a performance optimization expert. Your role is to analyze the database schema for performance-related considerations. Focus on indexing strategies, anticipated query performance, and how the schema design can impact the overall responsiveness of the sales pipeline tracker application. Identify any design elements that could hinder performance and suggest optimizations where necessary.\", \"json\": {\"criteria\":[\"Optimized indexing strategies for key queries\",\"Query performance expectations based on schema design\",\"Potential bottlenecks in the schema configuration\",\"Scalability of the schema with increasing data loads\",\"General recommendations for performance improvements\"],\"scale\":\"1-10\",\"format\":\"detailed_analysis\"}}"
+    },
+    "schema-data-modeling-quality-judge": {
+      "id": "schema-data-modeling-quality-judge",
+      "name": "SchemaDataModelingQualityExpert",
+      "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4/chat/completions?api-version=2024-02-15-preview",
+      "metaprompt": "{\"text\": \"You are an expert in data modeling. Evaluate the quality of data modeling in the provided schema, focusing on concepts such as entity relationships, use of primary and foreign keys, and the suitability of chosen entities and attributes for capturing the required business logic. Consider potential improvements in representation and clarity.\", \"json\": {\"criteria\": [\"clarity of entities and attributes\", \"effectiveness of relationships\", \"use of primary and foreign keys\", \"adequacy of data representation for business logic\"], \"scale\": \"1-5\", \"format\": \"detailed_analysis\"}}"
+    },
+    "schema-integration-judge": {
+      "id": "schema-integration-judge",
+      "name": "SchemaIntegrationExpert",
+      "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4/chat/completions?api-version=2024-02-15-preview",
+      "metaprompt": "{\"text\":\"You are an integration expert focused on the capability of the database schema to work with external systems. Your task is to evaluate how well the schema supports the necessary integrations with Salesforce CRM, Microsoft Exchange, and Microsoft Teams. Examine the structure for providing seamless data flow and interaction between systems to enhance the user experience and operational effectiveness.\",\"json\":{\"criteria\":[\"Effectiveness of schema for integrating with Salesforce\",\"Readiness for calendar synchronization with Exchange\",\"Ability to send and receive notifications through Teams\",\"Handling of data consistency across systems\",\"Ease of configuration for integrations\"],\"scale\":\"1-10\",\"format\":\"score_only\"}}"
+    },
+    "schema-data-model-quality-judge": {
+      "id": "schema-data-model-quality-judge",
+      "name": "SchemaDataModelQualityExpert",
+      "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4/chat/completions?api-version=2024-02-15-preview",
+      "metaprompt": "{\"text\": \"You are an expert in data modeling. Your role is to evaluate the quality of the data model present in the database schema. Focus on the relationships between entities, complexity of data structures, and appropriateness of data normalization. Assess whether the model can effectively represent business scenarios related to sales deal tracking.\", \"json\": {\"criteria\":[\"Correct entity-relationship mappings\",\"Clarity and simplicity of data models\",\"Handling of complex scenarios that arise in sales tracking\",\"Depth of attribute detail within entities\",\"Consideration of potential data growth and scalability\"],\"scale\":\"1-10\",\"format\":\"detailed_analysis\"}}"
+    },
+    "technical-correctness-judge": {
+      "id": "technical-correctness-judge",
+      "name": "TechnicalCorrectnessExpert",
+      "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4/chat/completions?api-version=2024-02-15-preview",
+      "metaprompt": "{\"text\": \"You are a technical correctness expert. Your job is to evaluate the workflow specification for technical accuracy, ensuring all integrations and functionalities are feasible and correctly defined. Focus on the implementation quality and accuracy of the specified technical elements.\", \"json\": {\"criteria\": [\"Accuracy of integration points\", \"Correctness of data types specified in parameters\", \"Feasibility of described workflow steps\"], \"scale\": \"1-10\", \"format\": \"detailed_analysis\"}}"
+    },
+    "requirement-fulfillment-judge": {
+      "id": "requirement-fulfillment-judge",
+      "name": "RequirementFulfillmentEvaluator",
+      "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4/chat/completions?api-version=2024-02-15-preview",
+      "metaprompt": "{\"text\": \"As a requirement fulfillment expert, assess how well the workflow meets the user's input requirements. Verify if all aspects of the onboarding process are covered and whether the workflow addresses the criteria outlined in the user query.\", \"json\": {\"criteria\": [\"Completeness of onboarding steps\", \"Proper handling of employee data\", \"Email invitation process\", \"Efficiency of HR monitoring capabilities\"], \"scale\": \"excellent|good|fair|poor\", \"format\": \"structured_feedback\"}}"
+    },
+    "usability-judge": {
+      "id": "usability-judge",
+      "name": "UserExperienceUsabilityExpert",
+      "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4/chat/completions?api-version=2024-02-15-preview",
+      "metaprompt": "{\"text\": \"As a User Experience and Usability Expert, your role is to assess the user interface and experience elements of the proposed solution. Evaluate the intuitiveness of the drag-and-drop interface, the accessibility of mobile views, and the overall usability for the specified user personas.\", \"json\": {\"criteria\": [\"Intuitiveness of user interface components\", \"Ease of use for mobile users\", \"Role-based access control clarity\", \"Engagement strategies like automated nudges and alerts\"], \"scale\": \"1-10\", \"format\": \"detailed_analysis\"}}"
+    },
+    "technical-accuracy-judge": {
+      "id": "technical-accuracy-judge",
+      "name": "TechnicalAccuracyExpert",
+      "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4/chat/completions?api-version=2024-02-15-preview",
+      "metaprompt": "{\"text\": \"You are an expert in reviewing the technical aspects of workflows. Evaluate the workflow for usability, technical accuracy, and implementation quality. Focus on aspects such as whether message types are suitable, whether the API integrations align with expected parameters, and any potential issues in the workflow steps.\", \"json\": {\"criteria\": [\"Technical correctness of each step\", \"Correct API usage and parameters\", \"Integration quality with UKG and Zendesk\", \"Implementation clarity\"], \"scale\": \"1-10\", \"format\": \"detailed_analysis\"}}"
+    },
+    "user-experience-judge": {
+      "id": "user-experience-judge",
+      "name": "UserExperienceAdviser",
+      "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4/chat/completions?api-version=2024-02-15-preview",
+      "metaprompt": "{\"text\": \"You are a user experience expert. Provide feedback on how intuitive and user-friendly the workflow is for new employees and HR personnel. Assess each step for clarity, ease of use, and potential bottlenecks or confusion.\", \"json\": {\"criteria\": [\"Clarity of instructions for employees\", \"Ease of navigation through the onboarding portal\", \"Intuitiveness of the workflow\", \"Feedback mechanisms for users during the process\"], \"scale\": \"1-10\", \"format\": \"detailed_analysis\"}}"
+    },
+    "security-compliance-judge": {
+      "id": "security-compliance-judge",
+      "name": "SecurityComplianceAuditor",
+      "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4/chat/completions?api-version=2024-02-15-preview",
+      "metaprompt": "{\"text\": \"Act as a security and compliance auditor. Review the workflow for adherence to data security protocols, especially regarding handling sensitive employee information. Ensure that the process complies with relevant regulations and best practices for data protection.\", \"json\": {\"criteria\": [\"Data privacy measures in place\", \"Compliance with relevant HR legislation\", \"Secure handling of employee data during onboarding\", \"Securing email communications\"], \"scale\": \"pass|fail\", \"format\": \"structured_feedback\"}}"
+    },
+    "maintainability-judge": {
+      "id": "maintainability-judge",
+      "name": "MaintainabilityBestPracticesExpe",
+      "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4/chat/completions?api-version=2024-02-15-preview",
+      "metaprompt": "{\"text\":\"You are a Maintainability Best Practices Expert focused on evaluating the long-term maintainability of the compliance training tracker system. Consider the simplicity of updating course material, the ease of adding new personnel, and the overall system architecture that supports ongoing changes and future scalability.\",\"json\":{\"criteria\":[\"Ease of updating training materials\",\"Simplicity of adding users and managing roles\",\"Modularity of the system's architecture\",\"Documentation quality for maintenance\",\"Future scalability options\"],\"scale\":\"1-10\",\"format\":\"detailed_analysis\"}}"
+    },
+    "maintainability-best-practice-judge": {
+      "id": "maintainability-best-practice-judge",
+      "name": "MaintainabilityBestPracticeExper",
+      "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4/chat/completions?api-version=2024-02-15-preview",
+      "metaprompt": "{\"text\": \"You are a Maintainability and Best Practices Expert. Evaluate the onboarding solution for maintainability, including the clarity of documentation, the modularity of workflows, and adherence to coding best practices for any involved programming aspects. Assess whether the solution can be easily updated or modified in the future as business needs evolve.\", \"json\": {\"criteria\": [\"Code/documentation clarity and completeness\", \"Modularity of the solution\", \"Ease of future updates/modifications\"], \"scale\": \"1-10\", \"format\": \"detailed_analysis\"}}"
+    }
+  },
+  "assemblies": {
+    "content-review-assembly-001": {
+      "id": "content-review-assembly-001",
+      "judges": [
+        {
+          "id": "content-quality-judge-001",
+          "name": "ContentQuality",
+          "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-02-15-preview",
+          "metaprompt": "{\"text\": \"You are a content quality judge. Evaluate content for clarity, accuracy, and usefulness.\", \"json\": {\"criteria\": [\"clarity\", \"accuracy\", \"usefulness\"], \"scale\": \"1-10\"}}"
+        },
+        {
+          "id": "readability-judge-005",
+          "name": "ReadabilityExp",
+          "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-02-15-preview",
+          "metaprompt": "{\"text\": \"You are a readability expert. Evaluate text comprehension and accessibility.\", \"json\": {\"criteria\": [\"reading_level\", \"sentence_structure\", \"vocabulary_complexity\"], \"scale\": \"beginner|intermediate|advanced|expert\"}}"
+        }
+      ],
+      "roles": [
+        "Primary content quality evaluator",
+        "Readability and accessibility specialist",
+        "Technical oversight"
+      ]
+    },
+    "comprehensive-review-assembly-003": {
+      "id": "comprehensive-review-assembly-003",
+      "judges": [
+        {
+          "id": "content-quality-judge-001",
+          "name": "ContentQuality",
+          "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-02-15-preview",
+          "metaprompt": "{\"text\": \"You are a content quality judge. Evaluate content for clarity, accuracy, and usefulness.\", \"json\": {\"criteria\": [\"clarity\", \"accuracy\", \"usefulness\"], \"scale\": \"1-10\"}}"
+        },
+        {
+          "id": "creativity-judge-003",
+          "name": "CreativityJudge",
+          "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-02-15-preview",
+          "metaprompt": "{\"text\": \"You are a creativity judge. Evaluate originality, innovation, and creative thinking.\", \"json\": {\"criteria\": [\"originality\", \"innovation\", \"uniqueness\"], \"scale\": \"excellent|good|fair|poor\"}}"
+        },
+        {
+          "id": "bias-detection-judge-004",
+          "name": "BiasDetector",
+          "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-02-15-preview",
+          "metaprompt": "{\"text\": \"You are a bias detection judge. Identify potential biases and ensure fairness.\", \"json\": {\"criteria\": [\"gender_bias\", \"racial_bias\", \"cultural_bias\", \"cognitive_bias\"], \"scale\": \"detected|not_detected\"}}"
+        }
+      ],
+      "roles": [
+        "Quality and accuracy lead reviewer",
+        "Innovation and creativity assessor",
+        "Bias detection and fairness specialist"
+      ]
+    },
+    "test-assembly-001": {
+      "id": "test-assembly-001",
+      "judges": [
+        {
+          "id": "test-judge-001",
+          "name": "TestJudge",
+          "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-02-15-preview",
+          "metaprompt": "{\"text\": \"Quick evaluation\", \"json\": {\"criteria\": [\"quality\"], \"scale\": \"1-10\"}}"
+        }
+      ],
+      "roles": [
+        "testing"
+      ]
+    },
+    "detailed-test-assembly": {
+      "id": "detailed-test-assembly",
+      "judges": [
+        {
+          "id": "detailed-test-judge",
+          "name": "DetailedContentEvaluator",
+          "model": "https://sgndev01sbdoaiwus301.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-02-15-preview",
+          "metaprompt": "{\"text\": \"You are a detailed content evaluator. Analyze the given content and provide:\\n1. Overall quality score (1-10)\\n2. Specific strengths\\n3. Areas for improvement\\n4. Recommendations\\n\\nBe specific and detailed in your analysis.\", \"json\": {\"criteria\": [\"quality\", \"clarity\", \"usefulness\", \"accuracy\"], \"scale\": \"1-10\", \"format\": \"detailed_analysis\"}}"
+        }
+      ],
+      "roles": [
+        "Primary content evaluator and detailed analyst"
+      ]
+    },
+    "comprehensive-evaluation-panel": {
+      "id": "comprehensive-evaluation-panel",
+      "judges": [
+        {
+          "id": "content-evaluator",
+          "name": "ContentEvaluator",
+          "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-02-15-preview",
+          "metaprompt": "{\"text\": \"You are a content quality expert. Provide detailed analysis of content quality, structure, and effectiveness.\", \"json\": {\"criteria\": [\"clarity\", \"engagement\", \"structure\"], \"scale\": \"1-10\"}}"
+        },
+        {
+          "id": "technical-reviewer",
+          "name": "TechnicalReviewer",
+          "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-02-15-preview",
+          "metaprompt": "{\"text\": \"You are a technical accuracy specialist. Focus on factual correctness, technical depth, and implementation quality.\", \"json\": {\"criteria\": [\"accuracy\", \"depth\", \"implementation\"], \"scale\": \"1-5\"}}"
+        },
+        {
+          "id": "creativity-expert",
+          "name": "CreativityExpert",
+          "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-02-15-preview",
+          "metaprompt": "{\"text\": \"You are a creativity and innovation specialist. Evaluate originality, creative thinking, and innovative approaches.\", \"json\": {\"criteria\": [\"originality\", \"innovation\", \"creativity\"], \"scale\": \"excellent|good|fair|poor\"}}"
+        }
+      ],
+      "roles": [
+        "Primary content quality and structure analyst",
+        "Technical accuracy and implementation specialist",
+        "Innovation and creative thinking evaluator"
+      ]
+    },
+    "database-design-comprehensive-assembly": {
+      "id": "database-design-comprehensive-assembly",
+      "judges": [
+        {
+          "id": "database-schema-judge",
+          "name": "DatabaseSchemaExpert",
+          "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-02-15-preview",
+          "metaprompt": "{\"text\": \"You are a database design expert with 15+ years of experience. Evaluate database schemas for:\\n1. Normalization compliance (1NF, 2NF, 3NF)\\n2. Table structure appropriateness\\n3. Primary and foreign key design\\n4. Field type selections\\n5. Scalability considerations\\n6. Performance implications\\n\\nProvide detailed technical assessment with specific recommendations.\", \"json\": {\"criteria\": [\"normalization\", \"structure\", \"keys\", \"types\", \"scalability\", \"performance\"], \"scale\": \"1-10\", \"format\": \"detailed_technical_analysis\"}}"
+        },
+        {
+          "id": "business-requirements-judge",
+          "name": "BusinessRequirementsAnalyst",
+          "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-02-15-preview",
+          "metaprompt": "{\"text\": \"You are a business analyst specializing in requirements analysis. Evaluate how well the database design meets business requirements:\\n1. Coverage of all user personas and their needs\\n2. Support for business workflows\\n3. Integration requirements fulfillment\\n4. Security and permissions alignment\\n5. Completeness of data model\\n\\nFocus on business value and requirement traceability.\", \"json\": {\"criteria\": [\"coverage\", \"workflow_support\", \"integration\", \"security\", \"completeness\"], \"scale\": \"1-10\", \"format\": \"business_analysis\"}}"
+        },
+        {
+          "id": "data-modeling-judge",
+          "name": "DataModelingSpecialist",
+          "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-02-15-preview",
+          "metaprompt": "{\"text\": \"You are a data modeling specialist. Evaluate the conceptual and logical data model:\\n1. Entity relationship appropriateness\\n2. Attribute completeness and accuracy\\n3. Cardinality and relationship integrity\\n4. Data type appropriateness\\n5. Naming conventions consistency\\n6. Model clarity and maintainability\\n\\nAssess from a pure data modeling perspective.\", \"json\": {\"criteria\": [\"relationships\", \"attributes\", \"cardinality\", \"data_types\", \"naming\", \"maintainability\"], \"scale\": \"excellent|good|fair|poor\", \"format\": \"data_modeling_assessment\"}}"
+        }
+      ],
+      "roles": [
+        "Database schema technical evaluation",
+        "Business requirements alignment analysis",
+        "Data modeling assessment"
+      ]
+    },
+    "integration-and-critique-assembly": {
+      "id": "integration-and-critique-assembly",
+      "judges": [
+        {
+          "id": "integration-architecture-judge",
+          "name": "IntegrationArchitect",
+          "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-02-15-preview",
+          "metaprompt": "{\"text\": \"You are an integration architect. Evaluate how well the database design supports system integrations:\\n1. UKG system integration readiness\\n2. Zendesk ticket creation support\\n3. External system data synchronization\\n4. API design implications\\n5. Data exchange patterns\\n6. System boundaries and interfaces\\n\\nFocus on technical integration aspects.\", \"json\": {\"criteria\": [\"ukg_integration\", \"zendesk_integration\", \"sync_capability\", \"api_design\", \"boundaries\"], \"scale\": \"1-5\", \"format\": \"integration_analysis\"}}"
+        },
+        {
+          "id": "database-critic-judge",
+          "name": "DatabaseCritic",
+          "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-02-15-preview",
+          "metaprompt": "{\"text\": \"You are a senior database architect and critic with a keen eye for design flaws. Your role is to identify problems, potential issues, and areas for improvement:\\n1. Design anti-patterns and code smells\\n2. Missing constraints and validations\\n3. Security vulnerabilities\\n4. Performance bottlenecks\\n5. Maintenance challenges\\n6. Scalability limitations\\n7. Data integrity risks\\n\\nBe thorough and critical. Point out specific issues with concrete examples and suggest improvements.\", \"json\": {\"criteria\": [\"design_flaws\", \"security_issues\", \"performance_problems\", \"integrity_risks\", \"scalability_issues\"], \"scale\": \"critical|major|minor|none\", \"format\": \"critical_analysis\"}}"
+        }
+      ],
+      "roles": [
+        "Integration architecture assessment",
+        "Critical design review and problem identification"
+      ]
+    },
+    "comprehensive-technical-assembly": {
+      "id": "comprehensive-technical-assembly",
+      "judges": [
+        {
+          "id": "database-schema-expert",
+          "name": "DatabaseSchemaExpert",
+          "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-02-15-preview",
+          "metaprompt": "{\"text\": \"You are a senior database architect with 20+ years of experience. Evaluate database schemas for:\\n1. Normalization compliance (1NF, 2NF, 3NF, BCNF)\\n2. Table structure appropriateness and optimization\\n3. Primary and foreign key design patterns\\n4. Field type selections and constraints\\n5. Index strategy and performance optimization\\n6. Scalability and partitioning considerations\\n7. Data integrity and referential constraints\\n\\nProvide detailed technical assessment with specific recommendations and actionable improvements.\", \"json\": {\"criteria\": [\"normalization\", \"structure\", \"keys\", \"types\", \"performance\", \"scalability\", \"integrity\"], \"scale\": \"1-10\", \"format\": \"detailed_technical_analysis\", \"include_code_examples\": true}}"
+        },
+        {
+          "id": "data-modeling-specialist",
+          "name": "DataModelingSpecialist",
+          "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-02-15-preview",
+          "metaprompt": "{\"text\": \"You are a data modeling expert with expertise in conceptual, logical, and physical data modeling. Evaluate the data model for:\\n1. Entity relationship appropriateness and accuracy\\n2. Attribute completeness, accuracy, and business alignment\\n3. Cardinality and relationship integrity\\n4. Data type appropriateness and precision\\n5. Naming conventions consistency and clarity\\n6. Model clarity, maintainability, and documentation\\n7. Dimensional modeling principles (if applicable)\\n8. Data quality and validation rules\\n\\nAssess from pure data modeling perspective with focus on best practices.\", \"json\": {\"criteria\": [\"relationships\", \"attributes\", \"cardinality\", \"data_types\", \"naming\", \"maintainability\", \"validation\", \"documentation\"], \"scale\": \"excellent|good|fair|poor\", \"format\": \"data_modeling_assessment\"}}"
+        },
+        {
+          "id": "performance-specialist",
+          "name": "PerformanceSpecialist",
+          "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-02-15-preview",
+          "metaprompt": "{\"text\": \"You are a database performance optimization specialist. Evaluate the database design for:\\n1. Query performance and optimization opportunities\\n2. Index strategy and effectiveness\\n3. Table partitioning and sharding considerations\\n4. Memory usage and buffer optimization\\n5. I/O patterns and disk utilization\\n6. Concurrency and locking strategies\\n7. Caching opportunities and strategies\\n8. Performance monitoring and alerting setup\\n\\nFocus on scalability, throughput, and response time optimization.\", \"json\": {\"criteria\": [\"query_performance\", \"indexing\", \"partitioning\", \"memory\", \"io_patterns\", \"concurrency\", \"caching\", \"monitoring\"], \"scale\": \"optimal|good|acceptable|needs_optimization|poor\", \"format\": \"performance_analysis\"}}"
+        }
+      ],
+      "roles": [
+        "Technical database schema evaluation",
+        "Data modeling best practices assessment",
+        "Performance optimization analysis"
+      ]
+    },
+    "business-integration-assembly": {
+      "id": "business-integration-assembly",
+      "judges": [
+        {
+          "id": "business-requirements-analyst",
+          "name": "BusinessRequirementsAnalyst",
+          "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-02-15-preview",
+          "metaprompt": "{\"text\": \"You are a senior business analyst specializing in requirements analysis and business process modeling. Evaluate how well the database design meets business requirements:\\n1. Coverage of all user personas and their specific needs\\n2. Support for complete business workflows and processes\\n3. Integration requirements fulfillment\\n4. Security and permissions alignment with business roles\\n5. Completeness and traceability of data model to requirements\\n6. Business rule implementation and enforcement\\n7. Compliance and audit trail capabilities\\n\\nFocus on business value, requirement traceability, and process optimization.\", \"json\": {\"criteria\": [\"coverage\", \"workflow_support\", \"integration\", \"security\", \"completeness\", \"compliance\", \"traceability\"], \"scale\": \"excellent|good|satisfactory|needs_improvement|inadequate\", \"format\": \"business_analysis_report\"}}"
+        },
+        {
+          "id": "integration-architect",
+          "name": "IntegrationArchitect",
+          "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-02-15-preview",
+          "metaprompt": "{\"text\": \"You are an enterprise integration architect. Evaluate how well the database design supports system integrations:\\n1. External system integration readiness and patterns\\n2. API design implications and data exchange formats\\n3. Data synchronization capabilities and strategies\\n4. Event-driven architecture support\\n5. System boundaries and interface definitions\\n6. Data transformation and mapping requirements\\n7. Real-time vs batch processing considerations\\n8. Error handling and recovery mechanisms\\n\\nFocus on technical integration aspects and enterprise patterns.\", \"json\": {\"criteria\": [\"integration_readiness\", \"api_design\", \"sync_capability\", \"event_support\", \"boundaries\", \"transformation\", \"processing\", \"error_handling\"], \"scale\": \"1-5\", \"format\": \"integration_analysis\"}}"
+        }
+      ],
+      "roles": [
+        "Business requirements alignment analysis",
+        "Integration architecture assessment"
+      ]
+    },
+    "security-critical-assembly": {
+      "id": "security-critical-assembly",
+      "judges": [
+        {
+          "id": "security-architect",
+          "name": "SecurityArchitect",
+          "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-02-15-preview",
+          "metaprompt": "{\"text\": \"You are a cybersecurity architect specializing in data security and privacy. Evaluate the database design for:\\n1. Access control and role-based permissions\\n2. Data encryption and protection strategies\\n3. Privacy compliance (GDPR, CCPA, etc.)\\n4. Audit trail and monitoring capabilities\\n5. Data masking and anonymization requirements\\n6. Authentication and authorization mechanisms\\n7. Sensitive data identification and handling\\n8. Security vulnerabilities and threat vectors\\n\\nProvide comprehensive security analysis with specific recommendations.\", \"json\": {\"criteria\": [\"access_control\", \"encryption\", \"privacy\", \"audit\", \"masking\", \"authentication\", \"sensitive_data\", \"vulnerabilities\"], \"scale\": \"secure|mostly_secure|needs_attention|vulnerable|critical\", \"format\": \"security_assessment\"}}"
+        },
+        {
+          "id": "database-critic",
+          "name": "DatabaseCritic",
+          "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-02-15-preview",
+          "metaprompt": "{\"text\": \"You are a senior database architect and critic with a keen eye for design flaws. Your role is to identify problems, potential issues, and areas for improvement:\\n1. Design anti-patterns and code smells\\n2. Missing constraints and validations\\n3. Security vulnerabilities and exposure risks\\n4. Performance bottlenecks and optimization issues\\n5. Maintenance challenges and technical debt\\n6. Scalability limitations and future concerns\\n7. Data integrity risks and corruption possibilities\\n8. Business logic implementation issues\\n\\nBe thorough and critical. Point out specific issues with concrete examples and suggest improvements.\", \"json\": {\"criteria\": [\"design_flaws\", \"security_issues\", \"performance_problems\", \"integrity_risks\", \"scalability_issues\", \"maintenance_issues\", \"business_logic\", \"technical_debt\"], \"scale\": \"critical|major|minor|none\", \"format\": \"critical_analysis\"}}"
+        }
+      ],
+      "roles": [
+        "Security architecture and compliance evaluation",
+        "Critical design review and problem identification"
+      ]
+    },
+    "comprehensive-full-assembly": {
+      "id": "comprehensive-full-assembly",
+      "judges": [
+        {
+          "id": "database-schema-expert",
+          "name": "DatabaseSchemaExpert",
+          "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-02-15-preview",
+          "metaprompt": "{\"text\": \"You are a senior database architect with 20+ years of experience. Evaluate database schemas for:\\n1. Normalization compliance (1NF, 2NF, 3NF, BCNF)\\n2. Table structure appropriateness and optimization\\n3. Primary and foreign key design patterns\\n4. Field type selections and constraints\\n5. Index strategy and performance optimization\\n6. Scalability and partitioning considerations\\n7. Data integrity and referential constraints\\n\\nProvide detailed technical assessment with specific recommendations and actionable improvements.\", \"json\": {\"criteria\": [\"normalization\", \"structure\", \"keys\", \"types\", \"performance\", \"scalability\", \"integrity\"], \"scale\": \"1-10\", \"format\": \"detailed_technical_analysis\", \"include_code_examples\": true}}"
+        },
+        {
+          "id": "business-requirements-analyst",
+          "name": "BusinessRequirementsAnalyst",
+          "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-02-15-preview",
+          "metaprompt": "{\"text\": \"You are a senior business analyst specializing in requirements analysis and business process modeling. Evaluate how well the database design meets business requirements:\\n1. Coverage of all user personas and their specific needs\\n2. Support for complete business workflows and processes\\n3. Integration requirements fulfillment\\n4. Security and permissions alignment with business roles\\n5. Completeness and traceability of data model to requirements\\n6. Business rule implementation and enforcement\\n7. Compliance and audit trail capabilities\\n\\nFocus on business value, requirement traceability, and process optimization.\", \"json\": {\"criteria\": [\"coverage\", \"workflow_support\", \"integration\", \"security\", \"completeness\", \"compliance\", \"traceability\"], \"scale\": \"excellent|good|satisfactory|needs_improvement|inadequate\", \"format\": \"business_analysis_report\"}}"
+        },
+        {
+          "id": "data-modeling-specialist",
+          "name": "DataModelingSpecialist",
+          "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-02-15-preview",
+          "metaprompt": "{\"text\": \"You are a data modeling expert with expertise in conceptual, logical, and physical data modeling. Evaluate the data model for:\\n1. Entity relationship appropriateness and accuracy\\n2. Attribute completeness, accuracy, and business alignment\\n3. Cardinality and relationship integrity\\n4. Data type appropriateness and precision\\n5. Naming conventions consistency and clarity\\n6. Model clarity, maintainability, and documentation\\n7. Dimensional modeling principles (if applicable)\\n8. Data quality and validation rules\\n\\nAssess from pure data modeling perspective with focus on best practices.\", \"json\": {\"criteria\": [\"relationships\", \"attributes\", \"cardinality\", \"data_types\", \"naming\", \"maintainability\", \"validation\", \"documentation\"], \"scale\": \"excellent|good|fair|poor\", \"format\": \"data_modeling_assessment\"}}"
+        },
+        {
+          "id": "integration-architect",
+          "name": "IntegrationArchitect",
+          "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-02-15-preview",
+          "metaprompt": "{\"text\": \"You are an enterprise integration architect. Evaluate how well the database design supports system integrations:\\n1. External system integration readiness and patterns\\n2. API design implications and data exchange formats\\n3. Data synchronization capabilities and strategies\\n4. Event-driven architecture support\\n5. System boundaries and interface definitions\\n6. Data transformation and mapping requirements\\n7. Real-time vs batch processing considerations\\n8. Error handling and recovery mechanisms\\n\\nFocus on technical integration aspects and enterprise patterns.\", \"json\": {\"criteria\": [\"integration_readiness\", \"api_design\", \"sync_capability\", \"event_support\", \"boundaries\", \"transformation\", \"processing\", \"error_handling\"], \"scale\": \"1-5\", \"format\": \"integration_analysis\"}}"
+        },
+        {
+          "id": "security-architect",
+          "name": "SecurityArchitect",
+          "model": "https://sgndev01sbdoaiwu301.openai.azure.com/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-02-15-preview",
+          "metaprompt": "{\"text\": \"You are a cybersecurity architect specializing in data security and privacy. Evaluate the database design for:\\n1. Access control and role-based permissions\\n2. Data encryption and protection strategies\\n3. Privacy compliance (GDPR, CCPA, etc.)\\n4. Audit trail and monitoring capabilities\\n5. Data masking and anonymization requirements\\n6. Authentication and authorization mechanisms\\n7. Sensitive data identification and handling\\n8. Security vulnerabilities and threat vectors\\n\\nProvide comprehensive security analysis with specific recommendations.\", \"json\": {\"criteria\": [\"access_control\", \"encryption\", \"privacy\", \"audit\", \"masking\", \"authentication\", \"sensitive_data\", \"vulnerabilities\"], \"scale\": \"secure|mostly_secure|needs_attention|vulnerable|critical\", \"format\": \"security_assessment\"}}"
+        }
+      ],
+      "roles": [
+        "Technical schema evaluation",
+        "Business requirements analysis",
+        "Data modeling assessment",
+        "Integration architecture review",
+        "Security compliance evaluation"
+      ]
+    },
+    "comprehensive-design-review": {
+      "id": "comprehensive-design-review",
+      "judges": [
+        "technical-accuracy-judge",
+        "requirement-fulfillment-judge",
+        "user-experience-judge"
+      ],
+      "roles": [
+        "Evaluates the technical correctness of the design",
+        "Assesses the design against specified requirements",
+        "Provides insights on user experience and usability"
+      ]
+    },
+    "technical-and-critical-review": {
+      "id": "technical-and-critical-review",
+      "judges": [
+        "integration-capabilities-judge",
+        "schema-technical-judge",
+        "security-evaluation-judge"
+      ],
+      "roles": [
+        "Evaluation of integration capabilities and functionality",
+        "Technical insight on schema design and implementation",
+        "Critical review of security aspects and vulnerabilities"
+      ]
+    },
+    "data-quality-and-security-assessment": {
+      "id": "data-quality-and-security-assessment",
+      "judges": [
+        "data-modeling-judge",
+        "security-evaluation-judge",
+        "business-logic-judge"
+      ],
+      "roles": [
+        "Assessment of data structure and quality",
+        "Evaluation of security measures in data handling",
+        "Analysis of business logic implications on data security"
+      ]
+    },
+    "comprehensive-schema-review": {
+      "id": "comprehensive-schema-review",
+      "judges": [
+        "schema-technical-judge",
+        "schema-business-alignment-judge",
+        "schema-data-modeling-judge",
+        "schema-security-judge",
+        "schema-integration-judge"
+      ],
+      "roles": [
+        "Technical expert evaluating schema design and implementation",
+        "Business alignment expert assessing alignment with business ",
+        "Data modeling expert analyzing effectiveness of data represe",
+        "Security expert reviewing security implications of the schem",
+        "Integration expert ensuring compatibility with existing syst"
+      ]
+    },
+    "security-and-performance-assessment": {
+      "id": "security-and-performance-assessment",
+      "judges": [
+        "schema-security-judge",
+        "schema-performance-judge"
+      ],
+      "roles": [
+        "Security expert evaluation",
+        "Performance expert evaluation"
+      ]
+    },
+    "comprehensive-evaluation": {
+      "id": "comprehensive-evaluation",
+      "judges": [
+        "technical-accuracy-judge",
+        "requirement-fulfillment-judge",
+        "user-experience-judge",
+        "security-compliance-judge",
+        "performance-scalability-judge"
+      ],
+      "roles": [
+        "Technical accuracy assessment",
+        "Requirement fulfillment analysis",
+        "User experience evaluation",
+        "Security and compliance check",
+        "Performance and scalability review"
+      ]
+    },
+    "technical-focused-review": {
+      "id": "technical-focused-review",
+      "judges": [
+        "schema-technical-judge",
+        "schema-integration-judge",
+        "schema-performance-judge"
+      ],
+      "roles": [
+        "Focuses on technical accuracy and robustness",
+        "Analyzes integration with other systems",
+        "Assesses performance metrics and potential bottlenecks"
+      ]
+    },
+    "business-alignment-review": {
+      "id": "business-alignment-review",
+      "judges": [
+        "schema-business-alignment-judge",
+        "schema-data-modeling-quality-judge",
+        "schema-security-judge"
+      ],
+      "roles": [
+        "Ensures business objectives are met through the schema",
+        "Evaluates the quality and consistency of data modeling",
+        "Reviews security implications for safeguarding business data"
+      ]
+    },
+    "focused-technical-review": {
+      "id": "focused-technical-review",
+      "judges": [
+        "schema-technical-judge",
+        "schema-integration-judge",
+        "schema-security-judge"
+      ],
+      "roles": [
+        "In-depth Technical Architecture Review",
+        "Integration Strategy Evaluation",
+        "Security Vulnerability Assessment"
+      ]
+    },
+    "business-and-modeling-review": {
+      "id": "business-and-modeling-review",
+      "judges": [
+        "schema-business-alignment-judge",
+        "schema-data-modeling-judge"
+      ],
+      "roles": [
+        "Business Needs Analysis and Mapping",
+        "Data Model Integrity and Effectiveness Evaluation"
+      ]
+    },
+    "focused-security-assessment": {
+      "id": "focused-security-assessment",
+      "judges": [
+        "schema-security-judge",
+        "schema-performance-judge"
+      ],
+      "roles": [
+        "Security expert focusing on vulnerabilities and threats.",
+        "Performance expert assessing impact on performance from secu"
+      ]
+    },
+    "business-and-technical-alignment": {
+      "id": "business-and-technical-alignment",
+      "judges": [
+        "schema-business-alignment-judge",
+        "schema-technical-judge"
+      ],
+      "roles": [
+        "Business alignment oversight",
+        "Technical feasibility review"
+      ]
+    },
+    "data-structure-and-performance-review": {
+      "id": "data-structure-and-performance-review",
+      "judges": [
+        "schema-data-modeling-judge",
+        "schema-performance-judge"
+      ],
+      "roles": [
+        "Data modeling expert analyzing the data architecture.",
+        "Performance expert evaluating the performance related to the"
+      ]
+    },
+    "focused-security-evaluation": {
+      "id": "focused-security-evaluation",
+      "judges": [
+        "schema-security-judge",
+        "schema-technical-judge"
+      ],
+      "roles": [
+        "Security Threat Assessment",
+        "Technical Security Implementation Review"
+      ]
+    },
+    "data-modeling-integration": {
+      "id": "data-modeling-integration",
+      "judges": [
+        "schema-data-modeling-judge",
+        "schema-integration-judge"
+      ],
+      "roles": [
+        "Data Structure Validation",
+        "Integration Points Evaluation"
+      ]
+    },
+    "comprehensive-schema-evaluation": {
+      "id": "comprehensive-schema-evaluation",
+      "judges": [
+        "schema-technical-judge",
+        "schema-business-alignment-judge",
+        "schema-data-modeling-quality-judge",
+        "schema-security-judge",
+        "schema-performance-judge"
+      ],
+      "roles": [
+        "Technical expertise review",
+        "Business alignment evaluation",
+        "Data modeling quality assessment",
+        "Security analysis",
+        "Performance evaluation"
+      ]
+    },
+    "data-modeling-and-quality-review": {
+      "id": "data-modeling-and-quality-review",
+      "judges": [
+        "schema-data-modeling-quality-judge",
+        "schema-technical-judge"
+      ],
+      "roles": [
+        "Data modeling quality analysis",
+        "Technical accuracy verification"
+      ]
+    },
+    "design-review": {
+      "id": "design-review",
+      "judges": [
+        "technical-correctness-judge",
+        "usability-judge"
+      ],
+      "roles": [
+        "Focuses on the technical aspects and correctness of the desi",
+        "Evaluates the usability and design experience"
+      ]
+    },
+    "performance-analysis": {
+      "id": "performance-analysis",
+      "judges": [
+        "performance-scale-judge",
+        "requirement-fulfillment-judge"
+      ],
+      "roles": [
+        "Analyzes scalability and performance metrics",
+        "Ensures that all requirements are met in performance scenari"
+      ]
+    },
+    "technical-focus-review": {
+      "id": "technical-focus-review",
+      "judges": [
+        "technical-accuracy-judge",
+        "maintainability-judge"
+      ],
+      "roles": [
+        "Evaluates the technical accuracy of the solution",
+        "Assesses the maintainability and best practices"
+      ]
+    },
+    "compliance-and-fulfillment-review": {
+      "id": "compliance-and-fulfillment-review",
+      "judges": [
+        "requirement-fulfillment-judge",
+        "security-compliance-judge"
+      ],
+      "roles": [
+        "Assesses if all requirements are adequately fulfilled",
+        "Checks for compliance with security standards"
+      ]
+    },
+    "user-centric-evaluation": {
+      "id": "user-centric-evaluation",
+      "judges": [
+        "user-experience-judge",
+        "requirement-fulfillment-judge"
+      ],
+      "roles": [
+        "Focuses on the usability and user interface aspects",
+        "Ensures that user needs and requirements are adequately addr"
+      ]
+    },
+    "full-design-review": {
+      "id": "full-design-review",
+      "judges": [
+        "technical-correctness-judge",
+        "requirement-fulfillment-judge",
+        "user-experience-judge",
+        "security-compliance-judge",
+        "performance-scalability-judge"
+      ],
+      "roles": [
+        "Evaluates the technical accuracy of the design",
+        "Assesses whether the design meets all specified requirements",
+        "Reviews the design for optimal user experience",
+        "Checks the design for compliance with security standards",
+        "Analyzes the design for performance and scalability issues"
+      ]
+    },
+    "technical-and-compliance-inspection": {
+      "id": "technical-and-compliance-inspection",
+      "judges": [
+        "technical-correctness-judge",
+        "security-compliance-judge"
+      ],
+      "roles": [
+        "Verifies the technical soundness of the implementation",
+        "Evaluates adherence to security compliance requirements"
+      ]
+    },
+    "performance-assessment": {
+      "id": "performance-assessment",
+      "judges": [
+        "performance-scalability-judge",
+        "technical-correctness-judge"
+      ],
+      "roles": [
+        "Examines the system for performance optimization",
+        "Confirms technical efficiency in resource usage"
+      ]
+    },
+    "security-and-performance-evaluation": {
+      "id": "security-and-performance-evaluation",
+      "judges": [
+        "security-compliance-judge",
+        "performance-scalability-judge"
+      ],
+      "roles": [
+        "Ensures the design meets security and compliance standards",
+        "Evaluates performance and scalability aspects of the design"
+      ]
+    },
+    "technical-evaluation": {
+      "id": "technical-evaluation",
+      "judges": [
+        "technical-accuracy-judge",
+        "performance-scalability-judge"
+      ],
+      "roles": [
+        "Evaluate technical accuracy",
+        "Assess performance and scalability"
+      ]
+    },
+    "compliance-evaluation": {
+      "id": "compliance-evaluation",
+      "judges": [
+        "security-compliance-judge",
+        "requirement-fulfillment-judge"
+      ],
+      "roles": [
+        "Conduct security compliance audit",
+        "Evaluate requirement fulfillment"
+      ]
+    },
+    "user-centered-evaluation": {
+      "id": "user-centered-evaluation",
+      "judges": [
+        "user-experience-judge",
+        "requirement-fulfillment-judge"
+      ],
+      "roles": [
+        "Assess user experience",
+        "Ensure requirement compliance"
+      ]
+    }
+  }
+}

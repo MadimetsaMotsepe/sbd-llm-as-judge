@@ -1,0 +1,82 @@
+{
+  "initial_user_query": "Create a comprehensive employee onboarding system that tracks progress through multiple stages",
+  "systemPrompt": "You are a senior HR system architect responsible for designing employee onboarding workflows. Your designs should be comprehensive, scalable, and user-friendly.",
+  "userPrompt": "Design an employee onboarding system that includes account creation, document collection, training modules, and progress tracking with automated notifications.",
+  "input_requirements": "The system must include:\n1. Multi-step onboarding workflow with clear stages\n2. Document upload and verification system\n3. Training module assignment and tracking\n4. Automated email notifications at key milestones\n5. Manager dashboard for monitoring progress\n6. Integration with HR systems (HRIS, payroll)\n7. Mobile-friendly interface\n8. Compliance tracking for regulatory requirements\n9. Customizable checklists per role/department\n10. Analytics and reporting capabilities",
+  "generated_output": {
+    "system_design": {
+      "architecture": "microservices",
+      "components": [
+        {
+          "name": "Authentication Service",
+          "description": "Handles user authentication and authorization",
+          "technologies": ["OAuth 2.0", "JWT", "Azure AD"]
+        },
+        {
+          "name": "Workflow Engine",
+          "description": "Manages onboarding workflow stages and transitions",
+          "technologies": ["Camunda", "REST APIs", "Event-driven architecture"]
+        },
+        {
+          "name": "Document Management",
+          "description": "Secure document upload, storage, and verification",
+          "technologies": ["Azure Blob Storage", "OCR services", "Digital signatures"]
+        },
+        {
+          "name": "Training Management",
+          "description": "Training module assignment and progress tracking",
+          "technologies": ["LMS integration", "SCORM compliance", "Progress APIs"]
+        },
+        {
+          "name": "Notification Service",
+          "description": "Automated email and SMS notifications",
+          "technologies": ["SendGrid", "Azure Service Bus", "Template engine"]
+        }
+      ],
+      "database_design": {
+        "employees": "Employee master data and onboarding status",
+        "workflows": "Workflow definitions and instance tracking",
+        "documents": "Document metadata and verification status",
+        "training": "Training assignments and completion records",
+        "notifications": "Notification history and preferences"
+      },
+      "security_measures": [
+        "End-to-end encryption",
+        "Role-based access control",
+        "Audit logging",
+        "Data retention policies"
+      ]
+    }
+  },
+  "structuredModel": {
+    "OnboardingWorkflow": {
+      "id": "string",
+      "employeeId": "string",
+      "currentStage": "enum[PreBoarding, FirstDay, FirstWeek, FirstMonth, Completed]",
+      "startDate": "datetime",
+      "expectedCompletionDate": "datetime",
+      "progress": "number (0-100)",
+      "tasks": [
+        {
+          "taskId": "string",
+          "name": "string",
+          "status": "enum[Pending, InProgress, Completed, Skipped]",
+          "assignedTo": "string",
+          "dueDate": "datetime"
+        }
+      ]
+    },
+    "Employee": {
+      "id": "string",
+      "firstName": "string",
+      "lastName": "string",
+      "email": "string",
+      "department": "string",
+      "role": "string",
+      "startDate": "datetime",
+      "managerId": "string"
+    }
+  },
+  "run_improvement": true,
+  "evaluation_name": "Employee Onboarding System Design Evaluation"
+}
